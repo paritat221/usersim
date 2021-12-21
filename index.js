@@ -10,7 +10,7 @@ client.on('ready', async () => {
 client.on('message', async (message) => {
     const channel = message.channel;
     var u_messages = [];
-    if(channel.id=='680537216761724945' || channel.id=='748563164362440856' || channel.id=='720686393415827506'){
+    if(channel.id=='748563164362440856'){ //restricts channels able to use it, change it to if(true) for global access
         if(message.content.startsWith(prefix)){
             var um = await fetch_msg(message, client);
             var um_content = um.map(el => el.content);
@@ -31,7 +31,7 @@ const fetch_msg = async (message, client) => {
     await message.channel.fetchMessages({limit:100}).then(async msgs=>{
         lm_id = msgs.first().id;
     });
-    while(n_um.length<100){
+    while(n_um.length<100){ //number of messages to fetch, changing it to more can cause the bot to become slower
         await message.channel.fetchMessages({limit:100, before:lm_id}).then(async msgs=>{
             msgs.forEach(async msg =>{
                 um.push(msg);
@@ -57,4 +57,4 @@ gen_msg = (messages)=>{
     return sentence.join(' ');
 }
 
-client.login(token);
+client.login(token); //change it to your token
